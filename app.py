@@ -183,9 +183,8 @@ elif menu == "Bahan Kimia Organik":
     st.title("📘 Informasi Senyawa Kimia Organik")
 
 # Dropdown
-    pilih = st.selectbox("📘 Pilih Senyawa untuk Detail", [""] + filtered_df['Senyawa'].tolist(), key="select_organik")
-    if pilih:
-        row = df[df["Senyawa"] == pilih].iloc[0]
+    if len(filtered_df) == 1:
+    row = filtered_df.iloc[0]
         st.markdown(f"""
         ## 🧪 {row['Senyawa']}
         - **Rumus Molekul:** {row['Rumus Molekul']}
