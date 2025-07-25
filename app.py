@@ -165,60 +165,59 @@ elif menu == "Bahan Kimia Organik":
     ("Triethylene glycol", "C6H14O4", "Iritasi ringan", "Sedang", "Gunakan ventilasi cukup", "Humektan dan disinfektan")
 ]
 
-columns = ["Senyawa", "Rumus Molekul", "Bahaya", "Keparahan", "Penanganan", "Manfaat"]
-df = pd.DataFrame(senyawa_list, columns=columns)
+    columns = ["Senyawa", "Rumus Molekul", "Bahaya", "Keparahan", "Penanganan", "Manfaat"]
+    df = pd.DataFrame(senyawa_list, columns=columns)
 
 # Pastikan dummy tidak ikut tampil
-df = df[~df['Senyawa'].str.startswith("Senyawa ")]
+    df = df[~df['Senyawa'].str.startswith("Senyawa ")]
 
 # =========================
 # Streamlit App
 # =========================
-st.title("📘 Informasi Senyawa Kimia Organik")
+    st.title("📘 Informasi Senyawa Kimia Organik")
 
 # Pencarian
-search = st.text_input("🔎 Cari senyawa kimia organik...", key="search_organik")
-if search:
-    filtered_df = df[df['Senyawa'].str.contains(search, case=False)]
-else:
-    filtered_df = df.copy()
+    search = st.text_input("🔎 Cari senyawa kimia organik...", key="search_organik")
+    if search:
+        filtered_df = df[df['Senyawa'].str.contains(search, case=False)]
+    else:
+        filtered_df = df.copy()
 
 # Dropdown
-pilih = st.selectbox("📘 Pilih Senyawa untuk Detail", [""] + filtered_df['Senyawa'].tolist(), key="select_organik")
-if pilih:
-    row = df[df["Senyawa"] == pilih].iloc[0]
-    st.markdown(f"""
-    ## 🧪 {row['Senyawa']}
-    - **Rumus Molekul:** {row['Rumus Molekul']}
-    - **Bahaya:** {row['Bahaya']}
-    - **Keparahan:** :red[{row['Keparahan']}]
-    - **Penanganan:** {row['Penanganan']}
-    - **Manfaat Umum:** {row['Manfaat']}
-    """)
+    pilih = st.selectbox("📘 Pilih Senyawa untuk Detail", [""] + filtered_df['Senyawa'].tolist(), key="select_organik")
+    if pilih:
+        row = df[df["Senyawa"] == pilih].iloc[0]
+        st.markdown(f"""
+        ## 🧪 {row['Senyawa']}
+        - **Rumus Molekul:** {row['Rumus Molekul']}
+        - **Bahaya:** {row['Bahaya']}
+        - **Keparahan:** :red[{row['Keparahan']}]
+        - **Penanganan:** {row['Penanganan']}
+        - **Manfaat Umum:** {row['Manfaat']}
+        """)
 
     if not pilih.startswith("Senyawa "):
         nama_url = pilih.lower().replace(" ", "%20")
         img_url = f"https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/{nama_url}/PNG"
         st.image(img_url, caption=f"Struktur molekul {pilih}", width=300)
         st.markdown(f"[🔗 Lihat di PubChem](https://pubchem.ncbi.nlm.nih.gov/#query={nama_url})", unsafe_allow_html=True)
-else:
-    st.warning("Tidak tersedia struktur untuk senyawa ini.")
-
-# Tabel ringkasan
-with st.expander("📊 Lihat Tabel Data Lengkap"):
-    st.dataframe(filtered_df, use_container_width=True)
+    else:
+        st.warning("Tidak tersedia struktur untuk senyawa ini.")
+        
+    with st.expander("📊 Lihat Tabel Data Lengkap"):
+        st.dataframe(filtered_df, use_container_width=True)
 
 # Legenda simbol bahaya
-with st.expander("📘 Legenda Simbol Bahaya"):
-    st.markdown("""
-    - ☠️ = Karsinogen / Sangat toksik  
-    - ⚠️ = Iritasi atau bahaya sedang  
-    - 🔥 = Mudah terbakar  
-    - 💥 = Peledak  
-    - 🧪 = Korosif  
-    - ☢️ = Neurotoksik / Toksik tinggi  
-    - ❓ = Bahaya tidak diketahui  
-    """)
+    with st.expander("📘 Legenda Simbol Bahaya"):
+        st.markdown("""
+        - ☠️ = Karsinogen / Sangat toksik  
+        - ⚠️ = Iritasi atau bahaya sedang  
+        - 🔥 = Mudah terbakar  
+        - 💥 = Peledak  
+        - 🧪 = Korosif  
+        - ☢️ = Neurotoksik / Toksik tinggi  
+        - ❓ = Bahaya tidak diketahui  
+        """)
     
 # --- Halaman Kimia Anorganik ---
 elif menu == "Bahan Kimia Anorganik":
