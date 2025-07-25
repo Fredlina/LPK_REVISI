@@ -176,7 +176,6 @@ elif menu == "Bahan Kimia Organik":
     
     if search:
         filtered_df = df[df['Senyawa'].str.contains(search, case=False, na=False)]
-        
     if filtered_df.empty:
         st.warning("❌ Senyawa tidak ditemukan.")
     else:
