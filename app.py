@@ -171,6 +171,12 @@ elif menu == "Bahan Kimia Organik":
 # Pastikan dummy tidak ikut tampil
     df = df[~df['Senyawa'].str.startswith("Senyawa ")]
 
+    search = st.text_input("🔎 Cari senyawa kimia organik...", key="search_organik")
+    if search:
+        filtered_df = df[df['Senyawa'].str.contains(search, case=False)]
+    else:
+        filtered_df = df.copy()
+
 # =========================
 # Streamlit App
 # =========================
