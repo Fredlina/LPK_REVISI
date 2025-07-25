@@ -174,6 +174,16 @@ elif menu == "Bahan Kimia Organik":
     search = st.text_input("🔎 Cari senyawa kimia organik...", key="search_organik")
     if search:
         filtered_df = df[df['Senyawa'].str.contains(search, case=False, na=False)]
+        row = filtered_df.iloc[0]
+        st.markdown(f"""
+        ## 🧪 {row['Senyawa']}
+        - Rumus Molekul: {row['Rumus Molekul']}
+        - Bahaya: {row['Bahaya']}
+        - Keparahan: :red[{row['Keparahan']}]
+        - Penanganan: {row['Penanganan']}
+        - Manfaat Umum: {row['Manfaat']}
+        """)
+
         
         if filtered_df.empty:
             st.warning("❌ Senyawa tidak ditemukan.")
