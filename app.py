@@ -18,8 +18,8 @@ if menu == "Home":
     st.write("Aplikasi ini memberikan informasi menarik tentang berbagai *senyawa kimia organik* dan *anorganik*.")
     st.markdown("> Yuk, eksplorasi dunia kimia bersama kami! 💡")
     
-    def add_bg_from_url():
-        st.markdown(
+  def add_bg_from_url():
+      st.markdown(
             f"""
             <style>
             .stApp {{
