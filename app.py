@@ -31,7 +31,7 @@ elif menu == "Bahan Kimia Organik":
     ("Ethyl acetate", "C4H8O2", "Iritasi kulit dan mata, mudah terbakar", "Sedang", "Simpan dalam wadah tertutup, APD diperlukan", "Pelarut cat dan tinta"),
     ("Methanol", "CH3OH", "Beracun jika tertelan atau terhirup", "Tinggi", "Gunakan di ruang terbuka, APD wajib", "Bahan bakar, pelarut"),
     ("Chloroform", "CHCl3", "Karsinogenik, depresi sistem saraf", "Tinggi", "Tangani di lemari asam, hindari kontak langsung", "Pelarut laboratorium"),
-    ("Phenol", "C6H5OH", "Korosif, menyebabkan luka bakar", "Tinggi", "Gunakan pelindung lengkap, ventilasi maksimal", "Produksi plastik, disinfektan"),
+    ("Fenol", "C6H5OH", "Korosif, menyebabkan luka bakar", "Tinggi", "Gunakan pelindung lengkap, ventilasi maksimal", "Produksi plastik, disinfektan"),
     ("Nitrobenzene", "C6H5NO2", "Beracun, memengaruhi sistem darah", "Tinggi", "Gunakan sarung tangan dan goggles", "Pembuatan anilin"),
     ("Aniline", "C6H5NH2", "Beracun, iritasi kulit dan mata", "Sedang", "Gunakan APD lengkap, hindari kontak kulit", "Industri pewarna dan karet"),
     ("Acetic acid", "CH3COOH", "Korosif kuat, menyebabkan luka bakar", "Tinggi", "Tangani dalam lemari asam, APD lengkap", "Pembuatan asetat, pengawet"),
