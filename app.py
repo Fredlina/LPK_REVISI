@@ -188,17 +188,6 @@ elif menu == "Bahan Kimia Organik":
         if filtered_df.empty:
             st.warning("❌ Senyawa tidak ditemukan.")
             
-        else:
-            row = filtered_df.iloc[0]
-            st.markdown(f"""
-        ## 🧪 {row['Senyawa']}
-            - Rumus Molekul: {row['Rumus Molekul']}
-            - Bahaya: {row['Bahaya']}
-            - Keparahan: :red[{row['Keparahan']}]
-            - Penanganan: {row['Penanganan']}
-            - Manfaat Umum: {row['Manfaat']}
-            """)
-
         # Gambar dari PubChem
         if not row['Senyawa'].startswith("Senyawa "):
             nama_url = row['Senyawa'].lower().replace(" ", "%20")
