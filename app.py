@@ -24,7 +24,7 @@ elif menu == "Bahan Kimia Organik":
     st.info("Aplikasi ini menyajikan daftar senyawa kimia organik berbahaya lengkap dengan rumus molekul, jenis bahaya, cara penanganan, manfaat, keparahan ,dan struktur molekul otomatis dari PubChem.")
 
     senyawa_list = [
-    ("Benzena", "C6H6", "Karsinogen, mudah menguap", "Tinggi", "Gunakan sarung tangan dan masker, ventilasi baik", "Pelarut industri, bahan baku plastik"),
+    ("Benzene", "C6H6", "Karsinogen, mudah menguap", "Tinggi", "Gunakan sarung tangan dan masker, ventilasi baik", "Pelarut industri, bahan baku plastik"),
     ("Formaldehyde", "CH2O", "Iritasi mata dan saluran napas, toksik", "Tinggi", "Gunakan APD, hindari paparan langsung", "Pengawet biologis, bahan resin"),
     ("Aceton", "C3H6O", "Mudah terbakar, iritasi", "Sedang", "Jauhkan dari api, gunakan ventilasi", "Pelarut cat dan pembersih kuku"),
     ("Toluene", "C7H8", "Kerusakan saraf pusat", "Tinggi", "Hindari inhalasi, gunakan pelindung mata", "Pelarut industri, bahan baku TDI"),
