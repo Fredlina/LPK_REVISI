@@ -17,6 +17,22 @@ if menu == "Home":
     st.markdown("### Selamat datang!")
     st.write("Aplikasi ini memberikan informasi menarik tentang berbagai *senyawa kimia organik* dan *anorganik*.")
     st.markdown("> Yuk, eksplorasi dunia kimia bersama kami! 💡")
+    
+def add_bg_from_url():
+    st.markdown(
+        f"""
+        <style>
+        .stApp {{
+            background-image: url("https://i.pinimg.com/736x/a5/99/05/a5990524073230f206378ec2ce18894c.jpg");
+            background-size: cover;
+            background-attachment: fixed;
+        }}
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+add_bg_from_url()
   
 # --- Halaman Kimia Organik ---
 elif menu == "Bahan Kimia Organik":
