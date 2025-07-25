@@ -200,32 +200,6 @@ elif menu == "Bahan Kimia Organik":
             
     else:
         filtered_df = df.copy()
-
-
-# =========================
-# Streamlit App
-# =========================
-    st.title("📘 Informasi Senyawa Kimia Organik")
-
-# Dropdown
-    if len(filtered_df) == 1:
-        row = filtered_df.iloc[0]
-        st.markdown(f"""
-        ## 🧪 {row['Senyawa']}
-        - **Rumus Molekul:** {row['Rumus Molekul']}
-        - **Bahaya:** {row['Bahaya']}
-        - **Keparahan:** :red[{row['Keparahan']}]
-        - **Penanganan:** {row['Penanganan']}
-        - **Manfaat Umum:** {row['Manfaat']}
-        """)
-
-    if len(filtered_df) == 1 and not row['Senyawa'].startswith("Senyawa "):
-        nama_url = row['Senyawa'].lower().replace(" ", "%20")
-        img_url = f"https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/{nama_url}/PNG"
-        st.image(img_url, caption=f"Struktur molekul {row['Senyawa']}", width=300)
-        st.markdown(f"[🔗 Lihat di PubChem](https://pubchem.ncbi.nlm.nih.gov/#query={nama_url})", unsafe_allow_html=True)
-    else:
-        st.warning("Tidak tersedia struktur untuk senyawa ini.")
         
     with st.expander("📊 Lihat Tabel Data Lengkap"):
         st.dataframe(filtered_df, use_container_width=True)
