@@ -171,13 +171,33 @@ elif menu == "Bahan Kimia Organik":
 # Pastikan dummy tidak ikut tampil
     df = df[~df['Senyawa'].str.startswith("Senyawa ")]
 
-    search = st.text_input("🔎 Cari senyawa kimia organik...", key="search_organik")
-    df = df[~df['Senyawa'].str.startswith("Senyawa ")]
-    
+
     if search:
         filtered_df = df[df['Senyawa'].str.contains(search, case=False, na=False)]
-    if filtered_df.empty:
-        st.warning("❌ Senyawa tidak ditemukan.")
+        
+        if filtered_df.empty:
+            st.warning("❌ Senyawa tidak ditemukan.")
+            
+        else:
+            row = filtered_df.iloc[0]
+            st.markdown(f"""
+        ## 🧪 {row['Senyawa']}
+            - **Rumus Molekul:** {row['Rumus Molekul']}
+            - **Bahaya:** {row['Bahaya']}
+            - **Keparahan:** :red[{row['Keparahan']}]
+            - **Penanganan:** {row['Penanganan']}
+            - **Manfaat Umum:** {row['Manfaat']}
+            """)
+
+        # Gambar dari PubChem
+        if not row['Senyawa'].startswith("Senyawa "):
+            nama_url = row['Senyawa'].lower().replace(" ", "%20")
+            img_url = f"https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/{nama_url}/PNG"
+            st.image(img_url, caption=f"Struktur molekul {row['Senyawa']}", width=300)
+            st.markdown(f"[🔗 Lihat di PubChem](https://pubchem.ncbi.nlm.nih.gov/#query={nama_url})", unsafe_allow_html=True)
+        else:
+            st.warning("Tidak tersedia struktur untuk senyawa ini.")
+            
     else:
         filtered_df = df.copy()
 
