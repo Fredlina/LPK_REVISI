@@ -378,7 +378,7 @@ elif menu == "Bahan Kimia Anorganik":
     columns = ["Senyawa", "Rumus Molekul", "Bahaya", "Keparahan", "Penanganan", "Manfaat"]
     df = pd.DataFrame(senyawa_list, columns=columns)
 
-     df = df[~df['Senyawa'].str.startswith("Senyawa ")]
+    df = df[~df['Senyawa'].str.startswith("Senyawa ")]
     
     search = st.text_input("🔎 Cari senyawa kimia organik...", key="search_organik")
     st.title("📘 Informasi Senyawa Kimia Organik")
