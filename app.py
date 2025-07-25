@@ -376,31 +376,28 @@ elif menu == "Bahan Kimia Anorganik":
     ("Thorium dioxide", "ThO2", "Radioaktif", "Tinggi", "Tangani sesuai protokol radiasi", "Industri nuklir"),
     ("Sodium metabisulfite", "Na2S2O5", "Iritasi pernapasan", "Sedang", "Gunakan ventilasi baik", "Pengawet, antioksidan"),
     ("Potassium permanganate", "KMnO4", "Oksidator kuat", "Tinggi", "Tangani dengan APD", "Desinfektan, oksidator")
-    ]
+]
     
-    for i in range(139, 287):
-        senyawa_list.append((
-        f"Senyawa {i}",
-        "-",  # Rumus dummy
-        "Bahaya kimia generik",
-        "Sedang",
-        "Gunakan APD standar",
-        "Data manfaat belum tersedia"
-    ))
-
-# Buat DataFrame
     columns = ["Senyawa", "Rumus Molekul", "Bahaya", "Keparahan", "Penanganan", "Manfaat"]
     df = pd.DataFrame(senyawa_list, columns=columns)
 
+# Pastikan dummy tidak ikut tampil
+    df = df[~df['Senyawa'].str.startswith("Senyawa ")]
+
+# =========================
+# Streamlit App
+# =========================
+    st.title("📘 Informasi Senyawa Kimia Organik")
+
 # Pencarian
-    search = st.text_input("🔎 Cari senyawa kimia anorganik...", key="search_anorganik")
+    search = st.text_input("🔎 Cari senyawa kimia organik...", key="search_organik")
     if search:
         filtered_df = df[df['Senyawa'].str.contains(search, case=False)]
     else:
         filtered_df = df.copy()
 
 # Dropdown
-    pilih = st.selectbox("📘 Pilih Senyawa untuk Detail", [""] + filtered_df['Senyawa'].tolist())
+    pilih = st.selectbox("📘 Pilih Senyawa untuk Detail", [""] + filtered_df['Senyawa'].tolist(), key="select_organik")
     if pilih:
         row = df[df["Senyawa"] == pilih].iloc[0]
         st.markdown(f"""
@@ -412,7 +409,6 @@ elif menu == "Bahan Kimia Anorganik":
         - **Manfaat Umum:** {row['Manfaat']}
         """)
 
-    # Gambar struktur otomatis dari PubChem (jika bukan senyawa dummy)
     if not pilih.startswith("Senyawa "):
         nama_url = pilih.lower().replace(" ", "%20")
         img_url = f"https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/{nama_url}/PNG"
@@ -420,12 +416,11 @@ elif menu == "Bahan Kimia Anorganik":
         st.markdown(f"[🔗 Lihat di PubChem](https://pubchem.ncbi.nlm.nih.gov/#query={nama_url})", unsafe_allow_html=True)
     else:
         st.warning("Tidak tersedia struktur untuk senyawa ini.")
-
-# Tabel ringkasan
+        
     with st.expander("📊 Lihat Tabel Data Lengkap"):
         st.dataframe(filtered_df, use_container_width=True)
 
-# Legenda bahaya
+# Legenda simbol bahaya
     with st.expander("📘 Legenda Simbol Bahaya"):
         st.markdown("""
         - ☠️ = Karsinogen / Sangat toksik  
@@ -436,36 +431,3 @@ elif menu == "Bahan Kimia Anorganik":
         - ☢️ = Neurotoksik / Toksik tinggi  
         - ❓ = Bahaya tidak diketahui  
         """)
-
-# --- Halaman Tentang ---
-elif menu == "Tentang Aplikasi":
-    st.header("📘 Tentang Aplikasi")
-    st.markdown("""
-Aplikasi ini dibuat dengan tujuan edukasi untuk mengenalkan berbagai *senyawa kimia organik dan anorganik* 
-beserta rumus molekul dan kegunaannya.
-
-*Fitur:*
-- Navigasi antar halaman
-- Ilustrasi dan penjelasan bahan kimia
-- Ramah pengguna dan interaktif
-
-*Dibuat menggunakan:* Streamlit + Python  
-*Dikembangkan oleh:* Kelompok 8 LPK Ankim 1D 👩‍🔬👨‍🔬
-    """)
-
-# Mapping jenis bahaya ke nama ikon (dari file lokal atau URL)
-def get_hazard_symbol(bahaya):
-    if "karsinogen" in bahaya.lower():
-        return "☠️"  # Simbol tengkorak
-    elif "iritasi" in bahaya.lower():
-        return "⚠️"  # Simbol tanda peringatan
-    elif "mudah terbakar" in bahaya.lower():
-        return "🔥"  # Simbol api
-    elif "peledak" in bahaya.lower():
-        return "💥"  # Simbol ledakan
-    elif "korosif" in bahaya.lower():
-        return "🧪"  # Simbol cairan korosif
-    elif "neurotoksin" in bahaya.lower() or "toksik" in bahaya.lower():
-        return "☢️"  # Simbol biohazard / toksik
-    else:
-        return "❓"
