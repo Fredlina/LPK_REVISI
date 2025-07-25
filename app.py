@@ -182,11 +182,11 @@ elif menu == "Bahan Kimia Organik":
             row = filtered_df.iloc[0]
             st.markdown(f"""
         ## 🧪 {row['Senyawa']}
-            - **Rumus Molekul:** {row['Rumus Molekul']}
-            - **Bahaya:** {row['Bahaya']}
-            - **Keparahan:** :red[{row['Keparahan']}]
-            - **Penanganan:** {row['Penanganan']}
-            - **Manfaat Umum:** {row['Manfaat']}
+            - Rumus Molekul: {row['Rumus Molekul']}
+            - Bahaya: {row['Bahaya']}
+            - Keparahan: :red[{row['Keparahan']}]
+            - Penanganan: {row['Penanganan']}
+            - Manfaat Umum: {row['Manfaat']}
             """)
 
         # Gambar dari PubChem
