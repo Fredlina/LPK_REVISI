@@ -378,42 +378,38 @@ elif menu == "Bahan Kimia Anorganik":
     columns = ["Senyawa", "Rumus Molekul", "Bahaya", "Keparahan", "Penanganan", "Manfaat"]
     df = pd.DataFrame(senyawa_list, columns=columns)
 
-# Pastikan dummy tidak ikut tampil
-    df = df[~df['Senyawa'].str.startswith("Senyawa ")]
-
-# =========================
-# Streamlit App
-# =========================
-    st.title("📘 Informasi Senyawa Kimia Organik")
-
-# Pencarian
+     df = df[~df['Senyawa'].str.startswith("Senyawa ")]
+    
     search = st.text_input("🔎 Cari senyawa kimia organik...", key="search_organik")
+    st.title("📘 Informasi Senyawa Kimia Organik")
     if search:
-        filtered_df = df[df['Senyawa'].str.contains(search, case=False)]
-    else:
-        filtered_df = df.copy()
-
-# Dropdown
-    pilih = st.selectbox("📘 Pilih Senyawa untuk Detail", [""] + filtered_df['Senyawa'].tolist(), key="select_organik")
-    if pilih:
-        row = df[df["Senyawa"] == pilih].iloc[0]
+        filtered_df = df[df['Senyawa'].str.contains(search, case=False, na=False)]
+        row = filtered_df.iloc[0]
         st.markdown(f"""
         ## 🧪 {row['Senyawa']}
-        - **Rumus Molekul:** {row['Rumus Molekul']}
-        - **Bahaya:** {row['Bahaya']}
-        - **Keparahan:** :red[{row['Keparahan']}]
-        - **Penanganan:** {row['Penanganan']}
-        - **Manfaat Umum:** {row['Manfaat']}
+        - Rumus Molekul: {row['Rumus Molekul']}
+        - Bahaya: {row['Bahaya']}
+        - Keparahan: :red[{row['Keparahan']}]
+        - Penanganan: {row['Penanganan']}
+        - Manfaat Umum: {row['Manfaat']}
         """)
 
-    if not pilih.startswith("Senyawa "):
-        nama_url = pilih.lower().replace(" ", "%20")
-        img_url = f"https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/{nama_url}/PNG"
-        st.image(img_url, caption=f"Struktur molekul {pilih}", width=300)
-        st.markdown(f"[🔗 Lihat di PubChem](https://pubchem.ncbi.nlm.nih.gov/#query={nama_url})", unsafe_allow_html=True)
-    else:
-        st.warning("Tidak tersedia struktur untuk senyawa ini.")
         
+        if filtered_df.empty:
+            st.warning("❌ Senyawa tidak ditemukan.")
+            
+        # Gambar dari PubChem
+        if not row['Senyawa'].startswith("Senyawa "):
+            nama_url = row['Senyawa'].lower().replace(" ", "%20")
+            img_url = f"https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/{nama_url}/PNG"
+            st.image(img_url, caption=f"Struktur molekul {row['Senyawa']}", width=300)
+            st.markdown(f"[🔗 Lihat di PubChem](https://pubchem.ncbi.nlm.nih.gov/#query={nama_url})", unsafe_allow_html=True)
+        else:
+            st.warning("Tidak tersedia struktur untuk senyawa ini.")
+            
+    else:
+        filtered_df = df.copy()
+                
     with st.expander("📊 Lihat Tabel Data Lengkap"):
         st.dataframe(filtered_df, use_container_width=True)
 
