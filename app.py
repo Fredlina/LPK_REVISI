@@ -184,7 +184,7 @@ elif menu == "Bahan Kimia Organik":
 
 # Dropdown
     if len(filtered_df) == 1:
-    row = filtered_df.iloc[0]
+        row = filtered_df.iloc[0]
         st.markdown(f"""
         ## 🧪 {row['Senyawa']}
         - **Rumus Molekul:** {row['Rumus Molekul']}
