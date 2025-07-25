@@ -176,13 +176,6 @@ elif menu == "Bahan Kimia Organik":
 # =========================
     st.title("📘 Informasi Senyawa Kimia Organik")
 
-# Pencarian
-    search = st.text_input("🔎 Cari senyawa kimia organik...", key="search_organik")
-    if search:
-        filtered_df = df[df['Senyawa'].str.contains(search, case=False)]
-    else:
-        filtered_df = df.copy()
-
 # Dropdown
     pilih = st.selectbox("📘 Pilih Senyawa untuk Detail", [""] + filtered_df['Senyawa'].tolist(), key="select_organik")
     if pilih:
